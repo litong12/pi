@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <ul class="nav nav-pills navbar-right form">
+                <li role="presentation" class="active"><a href="#">注册</a></li>
+                <li role="presentation"><a href="#">登录</a></li>
+                <li role="presentation"><a href="#">通知</a></li>
+                <li role="presentation"><a href="#">设置</a></li>
+            </ul>
+        </header>
+        <div class="box" style="clear: both">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><img src="./img/banner1.jpg" alt=""></a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav jie">
+                    <li ><a  ui-sref="first" ui-sref-active="on">首页 <span class="sr-only">(current)</span></a></li>
+                    <li><a ui-sref="group" ui-sref-active="on">社区团体活动服务 <span ></span></a></li>
+                    <li><a ui-sref="party" ui-sref-active="on">党组织活动服务</a></li>
+                    <li><a  ui-sref="Resident" ui-sref-active="on">居民自治活动服务</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+        <ol class="breadcrumb">
+            <li  class="active">当前位置:首页</li>
+            <li  class="active">社区养老</li>
+            <li class="active">离休退休</li>
+        </ol>
+        <div id="myCarousel" class="carousel slide">
+            <div class="carousel-inner">
+                <dl class="item active">
+                    <dt>
+                        <img src="./img/icons.png" alt="First slide">
+                    </dt>
+                    <dd>
+                        社区生日会
+                        <p>提供社区五保供养申请的办理指南、注意事项、办理机构等相关的服务。</p>
+                    </dd>
+                </dl>
+
+                    <dl class="item">
+                        <dt>
+                            <img src="./img/icons.png" alt="First slide">
+                        </dt>
+                        <dd>
+                            社区生日会
+                            <p>提供社区五保供养申请的办理指南、注意事项、办理机构等相关的服务。</p>
+                        </dd>
+                    </dl>
+
+
+                    <dl class="item">
+                        <dt>
+                            <img src="./img/icons.png" alt="First slide">
+                        </dt>
+                        <dd>
+                            社区生日会
+                            <p>提供社区五保供养申请的办理指南、注意事项、办理机构等相关的服务。</p>
+                        </dd>
+                    </dl>
+
+
+            </div>
+            <!-- 轮播（Carousel）导航 -->
+            <a class="carousel-control left" href=""
+               data-slide="prev">&lsaquo;</a>
+            <a class="carousel-control right" href="#myCarousel"
+               data-slide="next">&rsaquo;</a>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="content">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active" ui-sref="activity"><a href="#info">活动介绍</a></li>
+                        <li role="presentation"><a href="#name" ui-sref="see">查看活动</a></li>
+                        <li role="presentation"><a href="#resident" ui-sref="viewactivity">活动总结</a></li>
+                        <!--<li role="presentation"><a href="#back" ui-sref="back">返回</a></li>-->
+                    </ul>
+
+                </div>
+                <div ui-view></div>
+            </div>
+            <div class="col-md-2">
+                <nav id="navbar-example2" class="navbar nav-side">
+
+                    <div class="timeline-wrap clearfix">
+                        <span class="circle top"></span>
+                        <span class="circle bottom"></span>
+                        <ul class="nav navbar-nav time-line">
+                            <li class="active"><a href="#info" ui-sref="activity">基本信息</a></li>
+                            <li class=""><a href="#name" ui-sref="see">请输入栏目名称</a></li>
+                            <li class="dropdown"><a href="#resident" ui-sref="viewactivity">居民预约</a></li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </div>
+            </div>
+        </div>
+
+    <script src="./node_modules/bootstrap/dist/js/jquery.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.js"></script>
+    <script>
+
+        $(".navbar-nav").on("click","li",function(){
+            $(this).addClass("active").siblings().removeClass("active")
+        })
+$(".time-line").on("click","li",function(){
+    $(this).addClass("active").siblings().removeClass("active")
+})
+
+        $(".nav-tabs").on("click","li",function(){
+            $(this).addClass("active").siblings().removeClass("active")
+        })
+
+        var app=angular.module("myapp",["ui.router"])
+
+        app.run(function($rootScope,$http){
+            $http.get("./data/data.json")
+                    .success(function(data){
+                    console.log(data)
+                        $rootScope.data=data
+                })
+
+            $rootScope.add = function(add){
+//                              alert("adsgfd")
+                    console.log(add)
+                };
+
+
+        })
+       app.config(function($stateProvider,$urlRouterProvider){
+
+           $urlRouterProvider.when("","/activity")
+           $stateProvider
+                   .state("activity",{
+                       url:"/activity",
+                       templateUrl:"activity.html",
+
+                   })
+                   .state("first",{
+                       url:"/first",
+                       templateUrl:"activity.html"
+
+                   })
+                   .state("group",{
+                       url:"/group",
+                       templateUrl:"group.html"
+                   })
+                   .state("party",{
+                       url:"/party",
+                       templateUrl:"party.html"
+                   })
+                   .state("Resident",{
+                       url:"/Resident",
+                       templateUrl:"Resident.html"
+                   })
+                   .state("see",{
+                       url:"/see",
+                       templateUrl:"viewactivity.html"
+                   })
+                   .state("notopen",{
+                       url:"/notopen",
+                       templateUrl:"see.html"
+                   })
+                   .state("Alreadyover",{
+                       url:"/Alreadyover",
+                       templateUrl:"see.html"
+                   })
+                   .state("Alreadysettled",{
+                       url:"/Alreadysettled",
+                       templateUrl:"see.html"
+                   })
+                   .state("viewactivity",{
+                       url:"/viewactivity",
+                       templateUrl:"three.html"
+                   })
+       })
+app.directive("inputFile",function(){
+    return{
+        template:`<div class="input-file">
+            <label for="{{inputId}}"></label>
+            <input type="file" id="{{inputId}}">
+            </div>`,
+        restrict:'E',
+        scope:{},
+        controller:function($scope){
+            $scope.inputId='inputFile'+$scope.inputId
+        },
+        link:function(scope,ele){
+            var inputFile=ele.find("div")
+            var input=$(inputFile).find("input")
+            //console.log(input)
+            input.on("change",function(){
+                //console.log(this.files)
+                var reader= new FileReader()
+                    reader.readAsDataURL(this.files[0])
+                reader.onload=function(){
+                    //console.log(reader.result)
+                    $(inputFile).find('label')[0].style.background='url('+this.result+')'
+                }
+
+            })
+        }
+    }
+})
+
+
+    </script>
+</body>
+</html>
